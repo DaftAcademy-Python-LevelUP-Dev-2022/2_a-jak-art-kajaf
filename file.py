@@ -52,4 +52,10 @@ def format_output(*required_keys):
 
 
 def add_method_to_instance(klass):
-    pass
+    def decorator(func):
+        def wrapper(*args):
+            val = func()
+            return val
+        setattr(klass, func.__name__, wrapper)
+        return wrapper
+    return decorator
